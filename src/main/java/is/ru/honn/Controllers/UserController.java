@@ -32,9 +32,20 @@ public class UserController {
         return "deleted";
     }
     @RequestMapping(value = "/user/{user_id}", method = RequestMethod.PUT)
-    public @ResponseBody String updateUser(@PathVariable("user_id") int user_id){
-        //User currentUser = userRepository.findById(user_id);
-        return "updated";
+    public @ResponseBody String updateUser(@PathVariable("user_id") int user_id, @RequestBody User user){
+        Optional<User> currentUser = userRepository.findById(user_id);
+
+        if(currentUser == null){
+            return "user with id: " + user_id + " not found";
+        }else{
+            currentUser.get().setFirstName(user.getFirstName());
+            currentUser.get().setLastName(user.getLastName());
+            currentUser.get().setAddress(user.getAddress());
+            currentUser.get().setEmail(user.getEmail());
+            currentUser.get().setPhone(user.getPhone());
+            userRepository.save(currentUser.get());
+            return "updated";
+        }
     }
 
     @RequestMapping(value= "/user", method = RequestMethod.POST)
