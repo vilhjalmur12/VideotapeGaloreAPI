@@ -44,9 +44,24 @@
             <version>2.3.0</version>
         </dependency>
         <dependency>
+<<<<<<< HEAD
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
             <version>1.1.1</version>
+=======
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+            <version>1.4.194</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+>>>>>>> 6f7344a708fa2cba5939d782612530a97eda5c15
         </dependency>
     </dependencies>
 
