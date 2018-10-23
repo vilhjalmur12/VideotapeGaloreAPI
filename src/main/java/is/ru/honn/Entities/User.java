@@ -1,9 +1,8 @@
 package is.ru.honn.Entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 public class User {
@@ -21,6 +20,21 @@ public class User {
     private String email;
 
     private String phone;
+
+    @OneToMany
+    private List<UserTapeRelation> videotapes;
+
+    public User() {}
+
+    public User(Integer id, String firstName, String lastName,
+                String address, String email, String phone) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.email = email;
+        this.phone = phone;
+    }
 
     public Integer getId() {
         return id;
@@ -69,4 +83,33 @@ public class User {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    public List<UserTapeRelation> getVideotapes() {
+        return videotapes;
+    }
+
+    public void setVideotapes(List<UserTapeRelation> videotapes) {
+        this.videotapes = videotapes;
+    }
+
+    public void addVideoTapeRelation(UserTapeRelation rel) {
+        videotapes.add(rel);
+        videotapes.remove(rel);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if(o == this) {
+            return true;
+        }
+        if(!(o instanceof User)) {
+            return false;
+        }
+
+        User tmp = (User) o;
+
+        return tmp.getId() == this.id;
+    }
+
 }

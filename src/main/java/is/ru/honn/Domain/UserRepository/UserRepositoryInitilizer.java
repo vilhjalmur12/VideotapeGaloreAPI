@@ -1,4 +1,5 @@
 package is.ru.honn.Domain.UserRepository;
 
-public class UserDbConnector {
+public interface UserRepositoryInitilizer {
+
 }
