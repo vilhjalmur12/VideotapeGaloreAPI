@@ -1,10 +1,8 @@
 package is.ru.honn.Controllers;
 
-<<<<<<< HEAD
+
 import java.util.List;
-=======
 import java.util.Optional;
->>>>>>> 6f7344a708fa2cba5939d782612530a97eda5c15
 import java.util.concurrent.atomic.AtomicLong;
 
 import is.ru.honn.Domain.UserRepository.UserRepository;
@@ -13,13 +11,9 @@ import is.ru.honn.Entities.User;
 import is.ru.honn.Services.UserService.UserService;
 import is.ru.honn.Services.UserService.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-
-<<<<<<< HEAD
 import org.springframework.beans.factory.annotation.Qualifier;
-=======
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
->>>>>>> 6f7344a708fa2cba5939d782612530a97eda5c15
 import org.springframework.web.bind.annotation.*;
 
 
@@ -34,10 +28,10 @@ public class UserController {
 
     public @ResponseBody
     Iterable<User> getUsers() {
-
         return _userService.getAllUsers();
+    }
 
-
+    /*
     @RequestMapping(value = "/user/{user_id}", method = RequestMethod.DELETE)
     public @ResponseBody String deleteUser(@PathVariable("user_id") int user_id){
         Optional toDelete = userRepository.findById(user_id);
@@ -62,7 +56,7 @@ public class UserController {
             userRepository.save(currentUser.get());
             return "updated";
         }
->>>>>>> 6f7344a708fa2cba5939d782612530a97eda5c15
+
     }
 
     @RequestMapping(value= "/user", method = RequestMethod.POST)
@@ -79,6 +73,5 @@ public class UserController {
         _userService.createUser(user);
         return "Saved";
     }
-
-
+    */
 }
