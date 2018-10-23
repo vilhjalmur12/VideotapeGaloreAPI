@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Component(value = "VideotapeServiceImpl")
 public class VideotapeServiceImpl implements VideotapeService {
@@ -48,6 +49,46 @@ public class VideotapeServiceImpl implements VideotapeService {
 
                 videotapeRepository.save(newTape);
             }
+        }
+    }
+    public Iterable<Videotape>  getAllTapes(){
+        return videotapeRepository.findAll();
+    }
+    public Optional<Videotape> getTapeById(Integer id){
+        return videotapeRepository.findById(id);
+    }
+    public void createTape(Videotape tape){
+        Videotape t = new Videotape();
+
+        t.setDirector_first_name(tape.getDirector_first_name());
+        t.setDirector_last_name(tape.getDirector_last_name());
+        t.setType(tape.getType());
+        t.setRelease_date(tape.getRelease_date());
+        t.setEidr(t.getEidr());
+        videotapeRepository.save(tape);
+        return;
+    }
+    public void deleteTape(Integer id){
+        Optional toDelete = videotapeRepository.findById(id);
+        if(toDelete == null){
+            return;
+        }else{
+            videotapeRepository.deleteById(id);
+            return;
+        }
+    }
+    public void updateTape(Integer id, Videotape tape){
+        Optional<Videotape> toUpdate = videotapeRepository.findById(id);
+        if(toUpdate == null){
+            return;
+        }else {
+            toUpdate.get().setDirector_first_name(tape.getDirector_first_name());
+            toUpdate.get().setDirector_last_name(tape.getDirector_last_name());
+            toUpdate.get().setRelease_date(tape.getRelease_date());
+            toUpdate.get().setType(tape.getType());
+            toUpdate.get().setEidr(tape.getEidr());
+            videotapeRepository.save(toUpdate.get());
+            return;
         }
     }
 }
