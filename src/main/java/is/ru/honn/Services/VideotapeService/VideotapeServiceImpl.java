@@ -2,7 +2,9 @@ package is.ru.honn.Services.VideotapeService;
 
 import is.ru.honn.Domain.ReaderService.JSONReaderService;
 import is.ru.honn.Domain.ReaderService.ReaderService;
+import is.ru.honn.Domain.ReviewRepository.ReviewRepository;
 import is.ru.honn.Domain.VideotapeRepository.VideotapeRepository;
+import is.ru.honn.Entities.Review;
 import is.ru.honn.Entities.User;
 import is.ru.honn.Entities.UserTapeRelation;
 import is.ru.honn.Entities.Videotape;
@@ -12,18 +14,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Component(value = "VideotapeServiceImpl")
 public class VideotapeServiceImpl implements VideotapeService {
 
     private VideotapeRepository videotapeRepository;
+    private ReviewRepository reviewRepository;
+
 
     @Autowired
     public VideotapeServiceImpl(VideotapeRepository videotapeRepository) {
         this.videotapeRepository = videotapeRepository;
 
-        if(videotapeRepository.count() == 0) {
+        if (videotapeRepository.count() == 0) {
             init();
         }
     }
@@ -33,11 +38,11 @@ public class VideotapeServiceImpl implements VideotapeService {
         ReaderService reader = new JSONReaderService("./src/main/resources/Videotapes.json");
         JSONArray tapeList = reader.getJsonArray();
 
-        for(Object jsonTape : tapeList) {
+        for (Object jsonTape : tapeList) {
             JSONObject tmpTape = (JSONObject) jsonTape;
 
 
-            if(!videotapeRepository.existsById(Integer.parseInt(tmpTape.get("id").toString()))) {
+            if (!videotapeRepository.existsById(Integer.parseInt(tmpTape.get("id").toString()))) {
                 Videotape newTape = new Videotape(Integer.parseInt(tmpTape.get("id").toString()),
                         tmpTape.get("title").toString(),
                         tmpTape.get("director_first_name").toString(),
@@ -51,37 +56,42 @@ public class VideotapeServiceImpl implements VideotapeService {
             }
         }
     }
-    public Iterable<Videotape>  getAllTapes(){
+
+    public Iterable<Videotape> getAllTapes() {
         return videotapeRepository.findAll();
     }
-    public Optional<Videotape> getTapeById(Integer id){
+
+    public Optional<Videotape> getTapeById(Integer id) {
         return videotapeRepository.findById(id);
     }
-    public void createTape(Videotape tape){
+
+    public void createTape(Videotape tape) {
         Videotape t = new Videotape();
 
         t.setDirector_first_name(tape.getDirector_first_name());
         t.setDirector_last_name(tape.getDirector_last_name());
         t.setType(tape.getType());
         t.setRelease_date(tape.getRelease_date());
-        t.setEidr(t.getEidr());
+        t.setEidr(tape.getEidr());
         videotapeRepository.save(tape);
         return;
     }
-    public void deleteTape(Integer id){
+
+    public void deleteTape(Integer id) {
         Optional toDelete = videotapeRepository.findById(id);
-        if(toDelete == null){
+        if (toDelete == null) {
             return;
-        }else{
+        } else {
             videotapeRepository.deleteById(id);
             return;
         }
     }
-    public void updateTape(Integer id, Videotape tape){
+
+    public void updateTape(Integer id, Videotape tape) {
         Optional<Videotape> toUpdate = videotapeRepository.findById(id);
-        if(toUpdate == null){
+        if (toUpdate == null) {
             return;
-        }else {
+        } else {
             toUpdate.get().setDirector_first_name(tape.getDirector_first_name());
             toUpdate.get().setDirector_last_name(tape.getDirector_last_name());
             toUpdate.get().setRelease_date(tape.getRelease_date());
@@ -91,4 +101,34 @@ public class VideotapeServiceImpl implements VideotapeService {
             return;
         }
     }
+
+    public Iterable<Review> getAllReviews() {
+        return reviewRepository.findAll();
+    }
+
+    public List<Review> getReviewByTapeId(int id) {
+
+        return reviewRepository.findReviewByTapeId(id);
+    }
+    public Review getUserReview(int tape_id, int user_id){
+        return reviewRepository.getSingleReview(tape_id, user_id);
+    }
+    public void updateUserReview(int tape_id, int user_id, Review r){
+        Review review = reviewRepository.getSingleReview(tape_id, user_id);
+        review.setTapeId(tape_id);
+        review.setUserId(user_id);
+        review.setReview(r.getReview());
+        review.setRating(r.getRating());
+        reviewRepository.save(review);
+    }
+    public void deleteUserReview(int tape_id, int user_id){
+        Review review = reviewRepository.getSingleReview(tape_id, user_id);
+        if (review == null){
+            return;
+        }else {
+            reviewRepository.deleteById(review.getId());
+        }
+    }
+
+
 }
