@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface VideotapeService {
     Iterable<Videotape> getAllTapes();
     void createTape(Videotape tape);
-    Optional<Videotape> getTapeById(Integer id);
+    Videotape getTapeById(Integer id);
     void deleteTape(Integer id);
     void updateTape(Integer id, Videotape tape);
 
