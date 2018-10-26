@@ -15,17 +15,21 @@ public class Review {
 
     private Integer rating;
 
-    private String review;
-
     public Review() {}
 
     public Review(Integer id, Integer tapeId, Integer userId,
-                  Integer rating, String review) {
+                  Integer rating) {
         this.id = id;
         this.tapeId = tapeId;
         this.userId = userId;
         this.rating = rating;
-        this.review = review;
+    }
+
+    public Review(Integer tapeId, Integer userId,
+                  Integer rating) {
+        this.tapeId = tapeId;
+        this.userId = userId;
+        this.rating = rating;
     }
 
     public Integer getId() {
@@ -60,13 +64,6 @@ public class Review {
         this.rating = rating;
     }
 
-    public String getReview() {
-        return review;
-    }
-
-    public void setReview(String review) {
-        this.review = review;
-    }
 
     @Override
     public boolean equals(Object o) {
