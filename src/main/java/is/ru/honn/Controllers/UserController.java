@@ -29,7 +29,7 @@ public class UserController {
     private UserService _userService;
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public @ResponseBody Iterable<User> getUsers() {
+    public @ResponseBody List<User> getUsers() {
         return _userService.getAllUsers();
     }
 
@@ -39,11 +39,13 @@ public class UserController {
         return _userService.getUserById(id);
     }
 
+
     @RequestMapping(value= "/user", method = RequestMethod.POST)
     public String createUser(@RequestBody User user) {
         _userService.createUser(user);
         return "Saved";
     }
+
 
     @RequestMapping(value= "/user/{id}", method = RequestMethod.PUT)
     public @ResponseBody UserDTO createUser(@RequestBody User user, @PathVariable Integer id) {

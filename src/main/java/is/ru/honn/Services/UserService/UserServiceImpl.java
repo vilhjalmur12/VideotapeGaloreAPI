@@ -82,7 +82,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    public Iterable<User> getAllUsers() {
+    public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 

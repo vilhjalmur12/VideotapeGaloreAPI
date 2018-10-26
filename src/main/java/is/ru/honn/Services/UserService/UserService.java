@@ -12,13 +12,12 @@ import java.util.Optional;
 
 @Service
 public interface UserService {
-    Iterable<User> getAllUsers();
+    List<User> getAllUsers();
     UserDetailDTO getUserById(Integer id);
     void createUser(User user);
     UserDTO updateUser(User user, Integer id);
     void deleteUserById(Integer id);
     List<Videotape> getAllTapesByUserOnLoan(Integer id);
-
 
     List<UserTapeRelation> getAllRelations();
     List<Videotape> getAllTapes();
