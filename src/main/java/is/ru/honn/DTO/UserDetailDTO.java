@@ -1,12 +1,10 @@
 package is.ru.honn.DTO;
 
-import is.ru.honn.Entities.User;
 import is.ru.honn.Entities.Videotape;
 
 import java.util.List;
 
-public class UserDTO {
-
+public class UserDetailDTO {
     private String firstName;
 
     private String lastName;
@@ -17,15 +15,19 @@ public class UserDTO {
 
     private String phone;
 
-    public UserDTO() {}
+    private List<Videotape> tapeHistory;
+    private List<Videotape> tapesOnLoan;
 
-    public UserDTO(String firstName, String lastName,
-                   String address, String email, String phone) {
+    public UserDetailDTO() {}
+
+    public UserDetailDTO(String firstName, String lastName,
+                   String address, String email, String phone, List<Videotape> tapeHistory, List<Videotape> tapesOnLoan) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.email = email;
         this.phone = phone;
+        this.tapeHistory = tapesOnLoan;
     }
 
     public String getFirstName() {
@@ -67,6 +69,4 @@ public class UserDTO {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-
 }

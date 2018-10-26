@@ -1,4 +1,4 @@
-package is.ru.honn.Domain.UserRepository;
+package is.ru.honn.Entities;
 
 import javax.persistence.*;
 
@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Review {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
     private Integer tapeId;
@@ -16,7 +16,6 @@ public class Review {
     private Integer rating;
 
     private String review;
-
 
     public Review() {}
 
