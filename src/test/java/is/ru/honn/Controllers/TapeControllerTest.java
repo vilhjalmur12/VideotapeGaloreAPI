@@ -7,11 +7,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@DataJpaTest
+//@DataJpaTest
 public class TapeControllerTest {
-    private TestEntityManager entityManager;
+    //private TestEntityManager entityManager;
 
-    private UserRepository userRepository;
+    //private UserRepository userRepository;
 
     // write test cases here
 }

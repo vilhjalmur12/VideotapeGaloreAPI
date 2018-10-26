@@ -9,6 +9,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+    //@SequenceGenerator(name = "userSequence", sequenceName = "user_seq",initialValue = 0)
     private Integer id;
 
     private String firstName;
