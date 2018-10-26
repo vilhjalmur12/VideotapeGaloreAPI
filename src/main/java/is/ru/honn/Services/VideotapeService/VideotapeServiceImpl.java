@@ -61,8 +61,8 @@ public class VideotapeServiceImpl implements VideotapeService {
         return videotapeRepository.findAll();
     }
 
-    public Optional<Videotape> getTapeById(Integer id) {
-        return videotapeRepository.findById(id);
+    public Videotape getTapeById(Integer id) {
+        return videotapeRepository.getVideoTapeById(id);
     }
 
     public void createTape(Videotape tape) {

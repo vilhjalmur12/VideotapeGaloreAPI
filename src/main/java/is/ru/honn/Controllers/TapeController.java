@@ -41,7 +41,7 @@ public class TapeController {
     }
     @RequestMapping(value = "/tape/{tape_id}", method = RequestMethod.GET)
     public @ResponseBody
-    Optional<Videotape>  getTapeById(@PathVariable("tape_id") int tape_id){
+    Videotape  getTapeById(@PathVariable("tape_id") int tape_id){
         return _videotapeService.getTapeById(tape_id);
     }
     @RequestMapping(value = "/tape/{tape_id}", method = RequestMethod.DELETE)
