@@ -8,8 +8,7 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    //@SequenceGenerator(name = "userSequence", sequenceName = "user_seq",initialValue = 0)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
 
     private String firstName;

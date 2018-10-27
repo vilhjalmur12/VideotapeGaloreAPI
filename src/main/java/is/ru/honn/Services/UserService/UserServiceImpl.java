@@ -2,9 +2,13 @@ package is.ru.honn.Services.UserService;
 
 import is.ru.honn.DTO.UserDTO;
 
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
+import java.util.spi.CalendarNameProvider;
+
 import is.ru.honn.DTO.UserDetailDTO;
 import is.ru.honn.Domain.ReaderService.JSONReaderService;
 import is.ru.honn.Domain.ReaderService.ReaderService;
@@ -62,7 +66,7 @@ public class UserServiceImpl implements UserService {
                     for(Object rel : (JSONArray) tmpUser.get("tapes")) {
                         JSONObject tmpRel = (JSONObject) rel;
 
-                        Integer relUserId = parseMySQLid(Integer.parseInt(tmpUser.get("id").toString()));
+                        Integer relUserId = Integer.parseInt(tmpUser.get("id").toString());
                         Integer relTapeId = Integer.parseInt(tmpRel.get("id").toString());
 
                         UserTapeRelation userTapeRel = new UserTapeRelation(relUserId, relTapeId,
@@ -84,6 +88,78 @@ public class UserServiceImpl implements UserService {
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    public List<User> getUserDateReport(String loanDate) {
+        List<UserTapeRelation> relations = userRepository.getUsersRentingByDate(java.sql.Date.valueOf(loanDate));
+
+        if(relations.isEmpty()) {
+            return null;
+        }
+
+        List<User> retList = new ArrayList<>();
+
+        for(UserTapeRelation rel : relations) {
+            Optional<User> tmp = userRepository.findById(rel.getUserId());
+
+            if(tmp == null) {
+                continue;
+            }
+
+            retList.add(tmp.get());
+        }
+
+
+        return retList;
+    }
+/*
+    public List<User> getUserDateReportDuration(String loanDate, Integer loanDuration) {
+        List<UserTapeRelation> allRelations = userRepository.getAllRelations();
+        List<User> retList = new ArrayList<>();
+        Date setDate = java.sql.Date.valueOf(loanDate);
+        Calendar c = Calendar.getInstance();
+        c.setTime(setDate);
+        c.add(Calendar.DATE, loanDuration);
+        Date newDate = new Date(c.getTimeInMillis());
+
+        for (UserTapeRelation rel : allRelations) {
+            if(rel.getReturnDate() != null) {
+                continue;
+            }
+
+            if(setDate.compareTo())
+        }
+
+
+        return null;
+    }
+
+*/
+    public List<User> getUserReportDuration(Integer loanDuration) {
+        List<UserTapeRelation> allRelations = userRepository.getAllRelations();
+        List<User> retList = new ArrayList<>();
+        Date today = new Date(new java.util.Date().getTime());
+        Calendar c = Calendar.getInstance();
+        c.setTime(today);
+        c.add(Calendar.DATE, -loanDuration);
+        Date oldDate = new Date(c.getTimeInMillis());
+
+        for (UserTapeRelation rel : allRelations) {
+            if(rel.getReturnDate() != null) {
+                continue;
+            }
+
+            if(oldDate.compareTo(rel.getBorrowDate()) >= 0) {
+                Optional<User> optUser = userRepository.findById(rel.getUserId());
+                if(optUser.isPresent()) {
+                    retList.add(optUser.get());
+                } else {
+                    continue;
+                }
+            }
+        }
+
+        return retList;
     }
 
     public UserDetailDTO getUserById(Integer id) {
@@ -166,19 +242,6 @@ public class UserServiceImpl implements UserService {
         }
 
         return userTapes;
-    }
-
-    private Integer parseMySQLid(Integer inID) {
-        if (inID < 1000) {
-            if(inID < 100) {
-                if (inID < 10) {
-                    return Integer.parseInt("100" + String.valueOf(inID));
-                }
-                return Integer.parseInt("10" + String.valueOf(inID));
-            }
-            return Integer.parseInt("1" + String.valueOf(inID));
-        }
-        return inID;
     }
 
 
