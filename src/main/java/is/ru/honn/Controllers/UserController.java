@@ -29,7 +29,22 @@ public class UserController {
     private UserService _userService;
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public @ResponseBody List<User> getUsers() {
+    public @ResponseBody List<User> getUsers(
+            @RequestParam( value = "LoanDate", required = false) Optional<String> LoanDate,
+            @RequestParam( value = "LoanDuration", required = false) Optional<Integer> LoanDuration) {
+
+        if (LoanDate.isPresent()) {
+            String sDate = LoanDate.get();
+            if (LoanDuration.isPresent()) {
+
+            } else {
+                return _userService.getUserDateReport(sDate);
+            }
+        } else if (LoanDuration.isPresent()) {
+            Integer iDuration = LoanDuration.get();
+            return _userService.getUserReportDuration(iDuration);
+        }
+
         return _userService.getAllUsers();
     }
 

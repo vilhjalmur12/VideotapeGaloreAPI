@@ -18,6 +18,8 @@ public interface UserService {
     UserDTO updateUser(User user, Integer id);
     void deleteUserById(Integer id);
     List<Videotape> getAllTapesByUserOnLoan(Integer id);
+    List<User> getUserDateReport(String loanDate);
+    List<User> getUserReportDuration(Integer loanDuration);
 
     List<UserTapeRelation> getAllRelations();
     List<Videotape> getAllTapes();
