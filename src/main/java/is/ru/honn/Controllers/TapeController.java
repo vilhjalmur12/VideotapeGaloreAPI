@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 
+import is.ru.honn.DTO.VideoTapeDTO;
 import is.ru.honn.Entities.Review;
 import is.ru.honn.Entities.Videotape;
 import is.ru.honn.Services.UserService.UserService;
@@ -41,7 +42,7 @@ public class TapeController {
     }
     @RequestMapping(value = "/tape/{tape_id}", method = RequestMethod.GET)
     public @ResponseBody
-    Videotape  getTapeById(@PathVariable("tape_id") int tape_id){
+    VideoTapeDTO getTapeById(@PathVariable("tape_id") int tape_id){
         return _videotapeService.getTapeById(tape_id);
     }
     @RequestMapping(value = "/tape/{tape_id}", method = RequestMethod.DELETE)
