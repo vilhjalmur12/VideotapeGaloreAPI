@@ -107,6 +107,7 @@ public class TapeController {
     @RequestMapping(value = "/tapes/{tape_id}", method = RequestMethod.PUT)
     public @ResponseBody
     void updateTapeById(@PathVariable("tape_id") int tape_id, @RequestBody Videotape tape){
+        tape.setId(tape_id);
         _videotapeService.updateTape(tape_id, tape);
     }
 }

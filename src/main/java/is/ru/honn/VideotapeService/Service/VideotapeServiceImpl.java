@@ -173,18 +173,17 @@ public class VideotapeServiceImpl implements VideotapeService {
      */
 
     public void updateTape(Integer id, Videotape tape) {
-        Optional<Videotape> toUpdate = videotapeRepository.findById(id);
-        if (toUpdate == null) {
-            return;
-        } else {
-            toUpdate.get().setDirector_first_name(tape.getDirector_first_name());
-            toUpdate.get().setDirector_last_name(tape.getDirector_last_name());
-            toUpdate.get().setRelease_date(tape.getRelease_date());
-            toUpdate.get().setType(tape.getType());
-            toUpdate.get().setEidr(tape.getEidr());
-            videotapeRepository.save(toUpdate.get());
-            return;
-        }
+        Optional<Videotape> tmpTape = videotapeRepository.findById(id)
+                .map( foundTape -> {
+                    foundTape.setTitle(tape.getTitle());
+                    foundTape.setDirector_first_name(tape.getDirector_first_name());
+                    foundTape.setDirector_last_name(tape.getDirector_last_name());
+                    foundTape.setRelease_date(tape.getRelease_date());
+                    foundTape.setType(tape.getType());
+                    foundTape.setEidr(tape.getEidr());
+                    return foundTape;
+                });
+        videotapeRepository.save(tmpTape.get());
     }
 
     /**
