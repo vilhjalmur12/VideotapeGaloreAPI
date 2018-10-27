@@ -1,8 +1,8 @@
 package is.ru.honn.Services;
 
-import is.ru.honn.Domain.VideotapeRepository.VideotapeRepository;
+import is.ru.honn.VideotapeService.Domain.VideotapeRepository;
 import is.ru.honn.Entities.Videotape;
-import is.ru.honn.Services.VideotapeService.VideotapeService;
+import is.ru.honn.VideotapeService.Service.VideotapeService;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -11,8 +11,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

@@ -3,6 +3,7 @@ package is.ru.honn.Domain.UserRepository;
 import is.ru.honn.Entities.User;
 import is.ru.honn.Entities.UserTapeRelation;
 import is.ru.honn.Entities.Videotape;
+import is.ru.honn.UserService.Domain.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.context.junit4.SpringRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package is.ru.honn.Controllers;
 
-import is.ru.honn.Domain.UserRepository.UserRepository;
+import is.ru.honn.UserService.Domain.UserRepository;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;

@@ -1,26 +1,22 @@
 package is.ru.honn.Services;
 
 import is.ru.honn.DTO.UserDTO;
-import is.ru.honn.Domain.UserRepository.UserRepository;
+import is.ru.honn.UserService.Domain.UserRepository;
 import is.ru.honn.Entities.User;
 import is.ru.honn.Entities.UserTapeRelation;
 import is.ru.honn.Entities.Videotape;
-import is.ru.honn.Services.UserService.UserService;
-import is.ru.honn.Services.UserService.UserServiceImpl;
+import is.ru.honn.UserService.Service.UserService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
