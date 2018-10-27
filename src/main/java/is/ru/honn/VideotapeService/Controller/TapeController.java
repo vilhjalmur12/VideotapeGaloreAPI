@@ -39,7 +39,7 @@ public class TapeController {
      *
      * @Return an Iterable<Videotap> of Videotapes entities to be passed through HTTP
      */
-    @RequestMapping(value = "/tape", method = RequestMethod.GET)
+    @RequestMapping(value = "/tapes", method = RequestMethod.GET)
     public @ResponseBody
     Iterable<Videotape> getTapes(
             @RequestParam( value = "LoanDate", required = false) Optional<String> LoanDate
@@ -61,7 +61,7 @@ public class TapeController {
      * @Param videotape the videotape object to be created
      */
 
-    @RequestMapping(value = "/tape", method = RequestMethod.POST)
+    @RequestMapping(value = "/tapes", method = RequestMethod.POST)
     public @ResponseBody
     void createTape(@RequestBody Videotape tape){
         _videotapeService.createTape(tape);
@@ -89,7 +89,7 @@ public class TapeController {
      * @Param id the id of the Videotape to be deleted
      */
 
-    @RequestMapping(value = "/tape/{tape_id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/tapes/{tape_id}", method = RequestMethod.DELETE)
     public @ResponseBody
     void deleteTapeById(@PathVariable("tape_id") int tape_id){
         _videotapeService.deleteTape(tape_id);
@@ -104,7 +104,7 @@ public class TapeController {
      *
      */
 
-    @RequestMapping(value = "/tape/{tape_id}", method = RequestMethod.PUT)
+    @RequestMapping(value = "/tapes/{tape_id}", method = RequestMethod.PUT)
     public @ResponseBody
     void updateTapeById(@PathVariable("tape_id") int tape_id, @RequestBody Videotape tape){
         _videotapeService.updateTape(tape_id, tape);

@@ -1,8 +1,6 @@
 package is.ru.honn.VideotapeService.Service;
 
 import is.ru.honn.DTO.VideoTapeDTO;
-import is.ru.honn.Domain.ReaderService.JSONReaderService;
-import is.ru.honn.Domain.ReaderService.ReaderService;
 import is.ru.honn.ReviewService.Domain.ReviewRepository;
 import is.ru.honn.UserService.Domain.UserRepository;
 import is.ru.honn.VideotapeService.Domain.VideotapeRepository;
