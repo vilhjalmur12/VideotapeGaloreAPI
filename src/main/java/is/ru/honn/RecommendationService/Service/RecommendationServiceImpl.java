@@ -12,12 +12,23 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * The main service class for RecommendationService with all implementations
+ *
+ * @version 1.0, 26 Okt 2018
+ */
 @Component(value = "RecommendationServiceImpl")
 public class RecommendationServiceImpl implements RecommendationService {
 
     @Autowired
     RecommendationRepository recommendationRepository;
 
+    /**
+     * gets all videotape recommendations for a user
+     *
+     * @param id users id
+     * @return a list of Videotape entity models
+     */
     public List<Videotape> getRecommendations(Integer id) {
 
         List<Object> relations = recommendationRepository.getAllRentalsExceptUsers(id);
