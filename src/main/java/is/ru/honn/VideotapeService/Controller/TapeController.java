@@ -76,7 +76,7 @@ public class TapeController {
      * @Return a videotapeDTO entity to be passed through HTTP
      */
 
-    @RequestMapping(value = "/tape/{tape_id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/tapes/{tape_id}", method = RequestMethod.GET)
     public @ResponseBody
     VideoTapeDTO getTapeById(@PathVariable("tape_id") int tape_id){
         return _videotapeService.getTapeById(tape_id);
@@ -109,6 +109,4 @@ public class TapeController {
     void updateTapeById(@PathVariable("tape_id") int tape_id, @RequestBody Videotape tape){
         _videotapeService.updateTape(tape_id, tape);
     }
-
-
 }
