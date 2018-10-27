@@ -56,4 +56,13 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      */
     @Query("SELECT i FROM UserTapeRelation i WHERE i.borrowDate = :date")
     List<UserTapeRelation> getUsersRentingByDate(@Param("date") Date date);
+
+
+    /**
+     * gets all rentals by all users
+     *
+     * @return a list of UserTapeRelation objects
+     */
+    @Query("SELECT i FROM UserTapeRelation i")
+    List<UserTapeRelation> getAllRelations();
 }
