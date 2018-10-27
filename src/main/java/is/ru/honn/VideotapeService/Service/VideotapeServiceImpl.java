@@ -1,8 +1,18 @@
 package is.ru.honn.VideotapeService.Service;
 
+import is.ru.honn.DTO.VideoTapeDTO;
 import is.ru.honn.Domain.ReaderService.JSONReaderService;
 import is.ru.honn.Domain.ReaderService.ReaderService;
+<<<<<<< HEAD:src/main/java/is/ru/honn/VideotapeService/Service/VideotapeServiceImpl.java
 import is.ru.honn.VideotapeService.Domain.VideotapeRepository;
+=======
+import is.ru.honn.Domain.ReviewRepository.ReviewRepository;
+import is.ru.honn.Domain.UserRepository.UserRepository;
+import is.ru.honn.Domain.VideotapeRepository.VideotapeRepository;
+import is.ru.honn.Entities.Review;
+import is.ru.honn.Entities.User;
+import is.ru.honn.Entities.UserTapeRelation;
+>>>>>>> 3d7b838113fea6381159f462a182811a538c1c84:src/main/java/is/ru/honn/Services/VideotapeService/VideotapeServiceImpl.java
 import is.ru.honn.Entities.Videotape;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -15,6 +25,12 @@ import java.util.Optional;
 public class VideotapeServiceImpl implements VideotapeService {
 
     private VideotapeRepository videotapeRepository;
+<<<<<<< HEAD:src/main/java/is/ru/honn/VideotapeService/Service/VideotapeServiceImpl.java
+=======
+    private ReviewRepository reviewRepository;
+    private UserRepository userRepository;
+
+>>>>>>> 3d7b838113fea6381159f462a182811a538c1c84:src/main/java/is/ru/honn/Services/VideotapeService/VideotapeServiceImpl.java
 
     @Autowired
     public VideotapeServiceImpl(VideotapeRepository videotapeRepository) {
@@ -53,8 +69,23 @@ public class VideotapeServiceImpl implements VideotapeService {
         return videotapeRepository.findAll();
     }
 
-    public Videotape getTapeById(Integer id) {
-        return videotapeRepository.getVideoTapeById(id);
+    public VideoTapeDTO getTapeById(Integer id) {
+        Optional<Videotape> checkTape = videotapeRepository.findById(id);
+        if(checkTape == null){
+            return null;
+        }
+        Videotape tape = checkTape.get();
+
+        VideoTapeDTO returnTape = new VideoTapeDTO(
+                tape.getTitle(),
+                tape.getDirector_first_name(),
+                tape.getDirector_last_name(),
+                tape.getType(),
+                tape.getRelease_date(),
+                tape.getEidr(),
+                getAllUsersByTape(tape.getId())
+        );
+        return returnTape;
     }
 
     public void createTape(Videotape tape) {
@@ -92,6 +123,22 @@ public class VideotapeServiceImpl implements VideotapeService {
             videotapeRepository.save(toUpdate.get());
             return;
         }
+    }
+
+    private VideoTapeDTO tapeToTapeDTO(Videotape videotape, List<User> history){
+
+        return new VideoTapeDTO(videotape.getTitle(), videotape.getDirector_first_name(), videotape.getDirector_last_name(), videotape.getType(), videotape.getRelease_date(), videotape.getEidr(), history);
+    }
+    private List<User> getAllUsersByTape(Integer id) {
+        List<UserTapeRelation> relations = videotapeRepository.geUserRelationsByTapeId(id);
+
+        List<User> userTapes = new ArrayList<>();
+
+        for (UserTapeRelation rel : relations) {
+            userTapes.add(videotapeRepository.getUserById(rel.getUserId()));
+        }
+
+        return userTapes;
     }
 
 
